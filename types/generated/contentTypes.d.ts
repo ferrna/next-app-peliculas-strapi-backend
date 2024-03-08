@@ -375,7 +375,6 @@ export interface ApiPeliculaPelicula extends Schema.CollectionType {
   };
   attributes: {
     titulo: Attribute.String;
-    descripcion: Attribute.Blocks;
     pais: Attribute.String;
     genero: Attribute.String;
     director: Attribute.String;
@@ -383,12 +382,13 @@ export interface ApiPeliculaPelicula extends Schema.CollectionType {
     imagen: Attribute.Media;
     calificacion: Attribute.Integer;
     fechaEstreno: Attribute.Date;
-    user: Attribute.Relation<
+    enlaceUrl: Attribute.UID<'api::pelicula.pelicula', 'titulo'>;
+    descripcion: Attribute.Text;
+    users: Attribute.Relation<
       'api::pelicula.pelicula',
-      'manyToOne',
+      'manyToMany',
       'plugin::users-permissions.user'
     >;
-    enlaceUrl: Attribute.UID<'api::pelicula.pelicula', 'titulo'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -782,7 +782,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -813,7 +812,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     peliculas: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToMany',
+      'manyToMany',
       'api::pelicula.pelicula'
     >;
     createdAt: Attribute.DateTime;

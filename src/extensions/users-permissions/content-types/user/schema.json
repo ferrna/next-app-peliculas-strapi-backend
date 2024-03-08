@@ -9,8 +9,7 @@
     "displayName": "User"
   },
   "options": {
-    "draftAndPublish": false,
-    "timestamps": true
+    "draftAndPublish": false
   },
   "attributes": {
     "username": {
@@ -68,9 +67,9 @@
     },
     "peliculas": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "manyToMany",
       "target": "api::pelicula.pelicula",
-      "mappedBy": "user"
+      "mappedBy": "users"
     }
   }
 }
